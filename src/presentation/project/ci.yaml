@@ -1,0 +1,23 @@
+stages:
+  - build
+  - code_style_test
+  - unit_test
+
+
+build:
+  script:
+    - docker-compose up
+
+code_style_test:
+  image: python:latest
+  script:
+    - pip3 install pycodestyle
+    - pycodestyle *.py
+
+unit_test:
+  image: python:latest
+  script:
+    - python3 tests.py
+
+
+

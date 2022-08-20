@@ -1,0 +1,21 @@
+stages:
+  - deploy
+  - notify_error
+
+deploy:
+  image: book_21_bot
+  script:
+    - docker-compose up # connect by ssh(restart service)
+    - sh .ci-notify.sh ✅
+
+notify_error:
+  stage: notify
+  script:
+  - sh .ci-notify.sh ❌
+  when: on_failure
+
+##!/bin/bash
+#
+#TIME="10"
+#URL="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
+#TEXT="Deploy status: $1"
